@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -14,9 +15,16 @@ export class AppComponent {
   title = 'my-angular-project-1';
   responseData$: Observable<any> | undefined;
   loadData: boolean = false;
+
   constructor(private http: HttpClient){}
-  getData(){
-    this.responseData$ = this.http.get('https://jsonplaceholder.typicode.com/users')
-    this.loadData = true;
+  postData(){
+    const user = {
+      id: 103,
+      name: 'กนกกร เกิดสมบุญ',
+      email: 'kanokkornKerdsomboon88888888@gmail.comm'
+    }
+      this.http.post('http://localhost:3000/users', user).subscribe((response)=>{
+        console.log('User Updated', response);
+    })
   }
 }
